@@ -40,7 +40,7 @@ const EmailSchedulerForm = () => {
   useEffect(() => {
     const fetchEmails = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/get-emails');
+        const response = await axios.get('https://email-schedular.onrender.com/get-emails');
         setFetchedEmails(response.data.emails);
       } catch (error) {
         console.error('Failed to fetch emails:', error);
@@ -52,7 +52,7 @@ const EmailSchedulerForm = () => {
   useEffect(() => {
     const fetchScheduledTasks = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/scheduled-tasks');
+        const response = await axios.get('https://email-schedular.onrender.com/scheduled-tasks');
         setScheduledTasks(response.data.tasks);
       } catch (error) {
         console.error('Failed to fetch scheduled tasks:', error);
@@ -106,10 +106,10 @@ const EmailSchedulerForm = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3001/schedule-emails', data);
+      const response = await axios.post('https://email-schedular.onrender.com/schedule-emails', data);
       setSuccessMessage(response.data.message);
       // Fetch updated scheduled tasks
-      const scheduledResponse = await axios.get('http://localhost:3001/scheduled-tasks');
+      const scheduledResponse = await axios.get('https://email-schedular.onrender.com/scheduled-tasks');
       setScheduledTasks(scheduledResponse.data.tasks);
     } catch (error) {
       setErrorMessage(error.response?.data?.message || 'An error occurred while scheduling emails.');
@@ -120,13 +120,13 @@ const EmailSchedulerForm = () => {
 
   const handleAddEmailCredentials = async () => {
     try {
-      await axios.post('http://localhost:3001/add-email-credentials', {
+      await axios.post('https://email-schedular.onrender.com/add-email-credentials', {
         user: newEmail,
         pass: newPassword
       });
       setNewEmail('');
       setNewPassword('');
-      const response = await axios.get('http://localhost:3001/get-emails');
+      const response = await axios.get('https://email-schedular.onrender.com/get-emails');
       setFetchedEmails(response.data.emails);
       setOpenAddCredentialsDialog(false); // Hide the add credentials form
     } catch (error) {
@@ -137,12 +137,12 @@ const EmailSchedulerForm = () => {
 
   const handleEditEmailCredentials = async () => {
     try {
-      await axios.put(`http://localhost:3001/edit-email-credentials/${editingIndex}`, {
+      await axios.put(`https://email-schedular.onrender.com/edit-email-credentials/${editingIndex}`, {
         user: newEmail,
         pass: newPassword
       });
       setEditingIndex(null);
-      const response = await axios.get('http://localhost:3001/get-emails');
+      const response = await axios.get('https://email-schedular.onrender.com/get-emails');
       setFetchedEmails(response.data.emails);
       setOpenUpdateCredentialsDialog(false);
     } catch (error) {
@@ -153,8 +153,8 @@ const EmailSchedulerForm = () => {
 
   const handleDeleteEmailCredentials = async () => {
     try {
-      await axios.delete(`http://localhost:3001/delete-email-credentials/${editingIndex}`);
-      const response = await axios.get('http://localhost:3001/get-emails');
+      await axios.delete(`https://email-schedular.onrender.com/delete-email-credentials/${editingIndex}`);
+      const response = await axios.get('https://email-schedular.onrender.com/get-emails');
       setFetchedEmails(response.data.emails);
       setOpenDeleteCredentialsDialog(false);
     } catch (error) {
@@ -165,8 +165,8 @@ const EmailSchedulerForm = () => {
 
   const handleDeleteScheduledTask = async () => {
     try {
-      await axios.delete(`http://localhost:3001/delete-scheduled-task/${deletingTaskIndex}`);
-      const response = await axios.get('http://localhost:3001/scheduled-tasks');
+      await axios.delete(`https://email-schedular.onrender.com/delete-scheduled-task/${deletingTaskIndex}`);
+      const response = await axios.get('https://email-schedular.onrender.com/scheduled-tasks');
       setScheduledTasks(response.data.tasks);
       setOpenDeleteTaskDialog(false);
     } catch (error) {
